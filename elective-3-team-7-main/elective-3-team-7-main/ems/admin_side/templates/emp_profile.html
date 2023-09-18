@@ -1,0 +1,96 @@
+{% extends 'emp_home.html' %}
+{% load static %}
+{% block body %}
+<body style="background-image:url('{% static 'images/adb.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+<div class="container">
+    <h2 style="margin-top:20px;font-size: 50px; color:white; ">Edit Profile</h2><hr>
+
+
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+            <label>First Name</label>
+            <input  style=" font-size:20px" type="text" name="firstname" placeholder="Enter First Name"  class="form-control"  value="{{emp_data.user.first_name}}" pattern="[A-Za-z]+">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group" style="text-align:center; color: white; font-size:25px;font-weight:bold"">
+            <label>Last Name</label>
+            <input style=" font-size:20px" type="text" name="lastname" placeholder="Enter Last Name"  class="form-control" value="{{emp_data.user.last_name}}" pattern="[A-Za-z]+">
+        </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group"style="text-align:center; color: white; font-size:25px;font-weight:bold">
+          <label>Employee Code</label>
+          <input style=" font-size:20px" type="text" name="empcode" value="{{emp_data.empcode}}" placeholder="Employee Code" required class="form-control" pattern="[0-9]+">
+      </div>
+  </div>
+    <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+      <label for="inputPassword4">Department</label>
+      <input style=" font-size:20px" type="text" class="form-control" name="department" id="inputPassword4" value="{{emp_data.department}}" required placeholder="Department">
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+      <label for="inputEmail4">Position</label>
+      <input style=" font-size:20px" type="text" class="form-control" name="position" id="inputEmail4" value="{{emp_data.post}}" required placeholder="Post">
+    </div>
+    <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+      <label for="inputPassword4">Date of Birth</label>
+      <input style=" font-size:20px" type="date" class="form-control" name="dob" id="inputPassword4"  value="{{emp_data.dob|date:"Y-m-d"}}" required>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+      <label for="inputEmail4">Date of Joining</label>
+      <input style=" font-size:20px" type="date" class="form-control" name="doj" id="inputEmail4" value="{{emp_data.doj|date:"Y-m-d"}}" required>
+    </div>
+    <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+      <label for="inputPassword4">City/Province</label>
+      <input style=" font-size:20px" type="text" class="form-control" name="city" id="inputPassword4"  value="{{emp_data.city}}" required placeholder="Enter City/Province">
+    </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+          <label for="inputEmail4">Region</label>
+          <input style=" font-size:20px" type="text" class="form-control" name="region" id="inputEmail4" value="{{emp_data.state}}" required placeholder="Enter Region">
+        </div>
+        <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+          <label for="inputPassword4">Country</label>
+          <input style=" font-size:20px" type="text" class="form-control" name="country" id="inputPassword4" value="{{emp_data.country}}" required placeholder="Enter Country">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+          <label for="inputEmail4">Zipcode</label>
+          <input style=" font-size:20px" type="text" class="form-control" name="zipcode" id="inputEmail4" value="{{emp_data.zipcode}}" required placeholder="Enter zipcode">
+        </div>
+        <div class="form-group col-md-6" style="text-align:center; color: white; font-size:25px;font-weight:bold">
+            <label for="exampleFormControlTextarea1">Address</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="address" rows="2">{{emp_data.address}}</textarea>
+        </div>
+    </div>
+  <button style=" font-size:20px" type="submit" class="btn btn-primary" style="width:90px;height:60px;">Submit</button>
+</form>
+
+</div>
+</body>
+{% if error == "no" %}
+<script>
+    alert('Your profile has been updated.');
+    window.location=("/emp_dashboard");
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong,Try Again...');
+</script>
+{% endif %}
+{% endblock  %}

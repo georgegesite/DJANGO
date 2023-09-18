@@ -1,0 +1,95 @@
+{% extends 'admin_home.html' %}
+{% block body %}
+
+<div class="container">
+    <h2 style="margin-top:20px" align="center">Edit Employee</h2><hr>
+
+
+<form method="post" action="" enctype="multipart/form-data">
+    {% csrf_token %}
+    <div class="row">
+      <div class="col-sm-6">
+        <div class="form-group">
+            <label>First Name</label>
+            <input type="text" name="firstname" placeholder="Enter First Name"  class="form-control"  value="{{emp_data.user.first_name}}" pattern="[A-Za-z]+">
+        </div>
+    </div>
+    <div class="col-sm-6">
+        <div class="form-group">
+            <label>Last Name</label>
+            <input type="text" name="lastname" placeholder="Enter Last Name"  class="form-control" value="{{emp_data.user.last_name}}" pattern="[A-Za-z]+">
+        </div>
+    </div>
+    <div class="col-sm-12">
+      <div class="form-group">
+          <label>Employee Code</label>
+          <input type="text" name="empcode" value="{{emp_data.empcode}}" placeholder="Employee Code" required class="form-control" pattern="[0-9]+">
+      </div>
+  </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Department</label>
+      <input type="text" class="form-control" name="department" id="inputPassword4" value="{{emp_data.department}}" required placeholder="Department">
+    </div>
+  </div>
+  
+    <div class="row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Position</label>
+      <input type="text" class="form-control" name="position" id="inputEmail4" value="{{emp_data.post}}" required placeholder="Post">
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">Date of Birth</label>
+      <input type="date" class="form-control" name="dob" id="inputPassword4"  value="{{emp_data.dob|date:"Y-m-d"}}" required>
+    </div>
+    </div>
+
+    <div class="row">
+    <div class="form-group col-md-6">
+      <label for="inputEmail4">Date of Joining</label>
+      <input type="date" class="form-control" name="doj" id="inputEmail4" value="{{emp_data.doj|date:"Y-m-d"}}" required>
+    </div>
+    <div class="form-group col-md-6">
+      <label for="inputPassword4">City/Province</label>
+      <input type="text" class="form-control" name="city" id="inputPassword4"  value="{{emp_data.city}}" required placeholder="Enter City/Province">
+    </div>
+    </div>
+
+
+    <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Region</label>
+          <input type="text" class="form-control" name="region" id="inputEmail4" value="{{emp_data.state}}" required placeholder="Enter Region">
+        </div>
+        <div class="form-group col-md-6">
+          <label for="inputPassword4">Country</label>
+          <input type="text" class="form-control" name="country" id="inputPassword4" value="{{emp_data.country}}" required placeholder="Enter Country">
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="form-group col-md-6">
+          <label for="inputEmail4">Zipcode</label>
+          <input type="text" class="form-control" name="zipcode" id="inputEmail4" value="{{emp_data.zipcode}}" required placeholder="Enter zipcode">
+        </div>
+        <div class="form-group col-md-6">
+            <label for="exampleFormControlTextarea1">Address</label>
+            <textarea class="form-control" id="exampleFormControlTextarea1" name="address" rows="3">{{emp_data.address}}</textarea>
+        </div>
+    </div>
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+</div>
+
+{% if error == "no" %}
+<script>
+    alert('Employee profile has been updated.');
+    window.location=("/employee-list");
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong,Try Again...');
+</script>
+{% endif %}
+{% endblock  %}

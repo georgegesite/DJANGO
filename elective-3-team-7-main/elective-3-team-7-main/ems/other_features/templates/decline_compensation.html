@@ -1,0 +1,9 @@
+<form method="post" action="{% url 'approve_compensation' pk=attendance_record.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Approve Compensation">
+</form>
+
+<form method="post" action="{% url 'decline_compensation' pk=attendance_record.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Decline Compensation">
+</form>

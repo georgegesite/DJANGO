@@ -1,0 +1,58 @@
+{% extends 'emp_home.html' %}
+{% block body %}
+<style>
+    /* Define table styles */
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+    th {
+        background-color: lightgray;
+    }
+
+    /* Define header styles */
+    h1 {
+        font-size: 20px;
+        color: blue;
+    }
+    h2 {
+        font-size: 18px;
+        color: green;
+    }
+</style>
+
+<h1>User Dashboard</h1>
+
+<h2>Attendance Records</h2>
+
+<table>
+    <tr>
+        <th>Date</th>
+        <th>Present</th>
+        <th>Reason</th>
+    </tr>
+    {% for record in attendance_records %}
+        <tr>
+            <td>{{ record.date }}</td>
+            <td>{{ record.present }}</td>
+            <td>{{ record.reason }}</td>
+        </tr>
+    {% endfor %}
+</table>
+
+<h2>Compensation Request Form</h2>
+
+<form method="post" action="{% url 'compensation_request' %}">
+    {% csrf_token %}
+    <label for="id_date">Date:</label>
+    <input type="date" name="date" id="id_date">
+    <br>
+    <label for="id_reason">Reason:</label>
+    <textarea name="reason" id="id_reason"></textarea>
+    <br>
+    <input type="submit" value="Request Compensation">
+</form>
+{% endblock  %}

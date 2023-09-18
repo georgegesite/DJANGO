@@ -1,0 +1,22 @@
+<!-- Display the attendance records for the current user -->
+{% for attendance in attendance_records %}
+    <div class="attendance-record">
+        <div class="date">{{ attendance.date }}</div>
+        {% if attendance.present %}
+            <div class="status present">Present</div>
+        {% else %}
+            <div class="status absent">Absent</div>
+            {% if attendance.reason %}
+                <div class="reason">Reason: {{ attendance.reason }}</div>
+            {% else %}
+                <!-- Display the compensation request form -->
+                <form method="post" action="{% url 'compensation_request' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="date" value="{{ attendance.date }}">
+                    <textarea name="reason" placeholder="Enter reason for absence"></textarea>
+                    <input type="submit" value="Request Compensation">
+                </form>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endfor %}

@@ -1,0 +1,85 @@
+{% extends 'emp_home.html' %}
+{% block body %}
+{% load static %}
+<body style="background-image:url('{% static 'images/adb.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+<style>
+    /* Define table styles */
+    table {
+        border-collapse: collapse;
+   
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        font-size:20px;
+        text-align:center;
+        height:50px;
+    }
+    th {
+        height:30px;
+        text-align:center;
+        background-color: blue;
+        font-size:20px;
+        color:white
+    }
+
+    /* Define header styles */
+    h1 {
+        padding-top:30px;
+        font-size: 50px;
+        color: white;
+    }
+    h2 {
+        font-size: 40px;
+        color: black;
+        font-weight:bold;
+        padding-top:70px;
+    }
+</style>
+
+<center>
+    <h1>My Attendance Feed</h1>
+
+    <table>
+        <tr>
+            <th>Date</th>
+            <th>Present</th>
+            <th>Reason</th>
+        </tr>
+        {% for record in attendance_records %}
+            <tr>
+                <td>{{ record.date }}</td>
+                <td>{{ record.present }}</td>
+                <td>{{ record.reason }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+
+    <h2>Update Attendance for Absent/Leave</h2>
+
+    <form method="post" action="{% url 'update_attendance' %}">
+        {% csrf_token %}
+        <label for="id_date" style="font-size:40px; color:white">Date:</label>
+        <input style="font-size:30px"type="date" name="date" id="id_date" required>
+        <br>
+        <label style="font-size:40px; color:white" for="id_present">Present:</label>
+        <select style="font-size:30px" name="present" id="id_present">
+          <option value="True">True</option>
+          <option value="False">False</option>
+        </select>
+        <br>
+        <label style="font-size:40px; color:white" for="id_reason">Reason:</label>
+        <textarea style="font-size:30px" name="reason" id="id_reason"></textarea>
+        <br>
+        <input style="font-size:30px; background-color: green;" type="submit" value="Update Attendance">
+    </form>
+    {% if messages %}
+  <ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+  </ul>
+{% endif %}
+</center>
+</body>
+{% endblock  %}

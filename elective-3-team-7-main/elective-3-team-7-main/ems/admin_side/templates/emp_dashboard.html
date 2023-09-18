@@ -1,0 +1,56 @@
+{% extends 'emp_home.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<link rel="stylesheet" href="{% static 'css/employee.css' %}">
+{% endblock %}
+{% block body %}
+
+<div class="jumbotron text-center" style="margin-bottom:0;">
+<body style="background-image:url('{% static 'images/adb.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+  <h1 class="display-4" style="padding-top: 60px; color:white; font-weight:bold; font-size: 60px; font-family: math;">EMPLOYEE DASHBOARD</h1>
+  <p class="lead" style="font-size: 25px;color:white">Here you can manage your personal information, attendance records, salary, and login password.</p>
+  <hr class="my-4">
+  <div class="container" style="padding:50px">
+    <div class="row">
+        <div class="col-sm-3">
+          <div class="card glow-box">
+            <div class="card-body">
+              <h5 class="card-title"> <i class="fas fa-user"></i> Edit Profile</h5>
+              <p class="card-text">Update your personal information.</p>
+              <a href="/emp_profile" class="btn btn-primary">Go to profile</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card glow-box">
+            <div class="card-body">
+              <h5 class="card-title"><i class="far fa-calendar-check"></i> My Attendance</h5>
+              <p class="card-text">Check your attendance records.</p>
+              <a href="/user-attendance" class="btn btn-primary">Check attendance</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card glow-box">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-money-check-alt"></i> My Salary</h5>
+              <p class="card-text">Check your salary information.</p>
+              <a href="/user_salary" class="btn btn-primary">Check salary</a>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="card glow-box">
+            <div class="card-body">
+              <h5 class="card-title"><i class="fas fa-key"></i> Change Password</h5>
+              <p class="card-text">Change your login password.</p>
+              <a href="/change_password" class="btn btn-primary">Change password</a>
+            </div>
+          </div>
+        </div>
+    </div>
+</div>
+</body>
+</div>
+{% endblock  %}

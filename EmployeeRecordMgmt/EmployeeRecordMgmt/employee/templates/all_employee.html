@@ -1,0 +1,44 @@
+{% extends 'admin_base.html' %}
+{% block main  %}
+<div class="card shadow">
+    <div class="card-body">
+
+        <h5 class="p-2" style="border-bottom: 2px solid orange;">Employee Details</h5>
+<div class="container-fluid">
+
+        <table class="table table-bordered table-sm" id="example">
+            <thead>
+                <tr>
+                    <th>S No.</th>
+                    <th>Emp_Code</th>
+                    <th>FirstName</th>
+                    <th>LastName</th>
+                    <th>Email</th>
+                    <th>Contact</th>
+                    <th>JoiningDate</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in employee %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.empcode}}</td>
+                    <td>{{i.user.first_name}}</td>
+                    <td>{{i.user.last_name}}</td>
+                    <td>{{i.user.username}}</td>
+                    <td>{{i.contact}}</td>
+                    <td>{{i.joiningdate}}</td>
+                    <td><a href="{% url 'edit_profile' i.id %}" class="text-primary">Edit Profile Detail</a>
+                        <br><a href="{% url 'edit_education' i.user.id %}" class="text-success">Edit Education Detail</a>
+                        <br><a href="{% url 'edit_experience' i.user.id %}" class="text-secondary">Edit Experience Detail</a>
+                        <br><a href="{% url 'delete_employee' i.user.id %}" class="text-danger" onclick="return confirm('Are You Sure?')">Delete</a>
+                        </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+</div>
+</div>
+</div>
+{% endblock %}

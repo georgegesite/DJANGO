@@ -1,0 +1,21 @@
+{% extends 'admin_home.html' %}
+{% load static %}
+{% block body %}
+<body style="background-image:url('{% static 'images/eml.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+<style>
+  h1{
+    padding:50px;
+    font-size: 50px;
+    color: white;
+  }
+</style>
+  <center>
+  <h1>Update Base Salary per Day</h1>
+  <form style="color:white; font-size:30px" method="post" action="{% url 'update_base_salary' pk=salary.pk %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <input style="background-color:green; color:white; font-size:30px" type="submit" value="Save">
+  </form>
+</center>
+</body>
+{% endblock %}

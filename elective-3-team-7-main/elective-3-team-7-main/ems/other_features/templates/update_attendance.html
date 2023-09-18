@@ -1,0 +1,13 @@
+<form method="post" action="{% url 'update_attendance' %}">
+    {% csrf_token %}
+    <input type="hidden" name="date" value="{{ attendance.date }}">
+    <input type="hidden" name="present" value="{{ attendance.present }}">
+    <input type="submit" value="Update Attendance">
+</form>
+<div>
+    {% if message %}
+    <div class="alert">
+      {{ message }}
+    </div>
+    {% endif %}
+  </div>

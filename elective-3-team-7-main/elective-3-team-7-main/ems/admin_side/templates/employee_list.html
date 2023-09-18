@@ -1,0 +1,72 @@
+{% extends 'admin_home.html' %}
+{% load static %}
+{% block body %}
+<link rel = stylesheet href = "//cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css" defer>
+  <script src="//cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js" defer></script>
+<script>
+    $(document).ready( function () {
+    $('#myTable').DataTable();
+} );
+  </script>
+  <body style="background-image:url('{% static 'images/eml.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+<div  class="container-fluid">
+        <h2 style="color:red;margin-top:4%">Employee List
+          <a href = "/registration"  class="nav-link {% if request.path == '/registration/' %} active {% endif %}"<button class="btn btn-primary" align="right" style="float:right">Create</button></a>
+        </h2>
+        <table class="table table-bordered" id="myTable">
+  <thead>
+  <tr>
+    <th style="color: white">FirstName</th>
+    <th style="color: white">LastName</th>
+    <th style="color: white">Emp_Code</th>
+    <th style="color: white">DOB</th>
+    <th style="color: white">Date of joining</th>
+    <th style="color: white">Department</th>
+    <th style="color: white">Position</th>
+    <th style="color: white">City/Province</th>
+    <th style="color: white">Region</th>
+    <th style="color: white">Country</th>
+    <th style="color: white">Zipcode</th>
+    <th style="color: white">No of leave</th>
+    <th style="color: white">Leave/Working</th>
+    <th style="color: white">Status</th>
+    <th style="color: white">Action</th>
+  </tr>
+  </thead>
+   <tbody>
+
+    {% for i in employee %}
+  <tr>
+
+    <td style="color: white">{{i.user.first_name}}</td>
+    <td style="color: white">{{i.user.last_name}}</td>
+    <td style="color: white">{{i.empcode}}</td>
+    <td style="color: white">{{i.dob}}</td>
+    <td style="color: white">{{i.doj}}</td>
+    <td style="color: white">{{i.department}}</td>
+    <td style="color: white">{{i.position}}</td>
+    <td style="color: white">{{i.city}}</td>
+    <td style="color: white">{{i.state}}</td>
+    <td style="color: white">{{i.country}}</td>
+    <td style="color: white">{{i.zipcode}}</td>
+    <td style="color: white">{{i.leave_count}}</td>
+    <td style="color: white">{% if i.on_leave %}
+        <a href="{% url 'leave_status' i.id %}" onclick="return confirm('Are you sure, You are working today?')"><button class="btn btn-danger">Leave</button></a>
+          {% else %}
+          <a href="{% url 'leave_status' i.id %}"  onclick="return confirm('Are you sure, You are applying for leave?')"><button class="btn btn-success">Working</button></a>
+        {% endif %}</td>
+      <td style="color: white">{% if i.active %}Active{% else %}Inactive{% endif %}</td>
+    <td><a href="{% url 'edit_employee' i.id %}" ><button class="btn btn-success">Edit</button></a>
+        <a href="{% url 'delete_employee' i.id %}" onclick="return confirm('Are you sure?')"><button class="btn btn-danger">delete</button></a>
+    </td>
+  </tr>
+
+    {% endfor %}
+    </tbody>
+
+</table>
+
+</div>
+</body>
+
+{% endblock  %}

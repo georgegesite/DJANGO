@@ -1,0 +1,61 @@
+{% extends 'admin_home.html' %}
+{% load static %}
+{% block body %}
+<style>
+    /* Define table styles */
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+    }
+    th {
+        background-color: lightgray;
+    }
+
+    /* Define header styles */
+    h1 {
+        font-size: 20px;
+        color: blue;
+    }
+    h2 {
+        font-size: 18px;
+        color: green;
+    }
+</style>
+
+<h1>Admin Dashboard</h1>
+
+<h2>Attendance Records</h2>
+
+<table>
+    <tr>
+        <th>User</th>
+        <th>Date</th>
+        <th>Present</th>
+        <th>Reason</th>
+        <th>Action</th>
+    </tr>
+    {% for record in attendance_records %}
+<tr>
+<td>{{ record.user }}</td>
+<td>{{ record.date }}</td>
+<td>{{ record.present }}</td>
+<td>{{ record.reason }}</td>
+{% if record.present %}
+<td>
+    <form method="post" action="{% url 'approve_compensation' pk=record.pk %}">
+    {% csrf_token %}
+    <input type="submit" value="Approve">
+    </form>
+    <form method="post" action="{% url 'decline_compensation' pk=record.pk %}">
+    {% csrf_token %}
+     <input type="submit" value="Decline">
+    </form>
+</td>
+{% endif %}
+</tr>
+{% endfor %}
+</table>
+{% endblock  %}

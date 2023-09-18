@@ -1,0 +1,80 @@
+{% extends 'admin_home.html' %}
+{% load static %}
+{% block body %}
+<body style="background-image:url('{% static 'images/eml.jpg'%}'); background-repeat: no repeat; background-size: 100%">
+<style>
+    /* Define table styles */
+    table {
+        border-collapse: collapse;
+    }
+    th, td {
+        border: 1px solid black;
+        padding: 5px;
+        color:white;
+        font-size:20px;
+    }
+    th {
+        background-color: lightgray;
+        text-align:center;
+        font-size: 20px;
+        color:black;
+    }
+
+    /* Define header styles */
+    h1 {
+        padding:30px;
+        font-size: 50px;
+        color: white;
+    }
+    h2 {
+        font-size: 18px;
+        color: green;
+    }
+</style>
+<center>
+  <h1>Employee Salaries</h1>
+  <table>
+    <thead>
+        <tr>
+            <th>Username</th>
+            <th>Base Salary</th>
+            <th>Working Days</th>
+            <th>Current Salary</th>
+            <th>Withdrawn</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for salary in salaries %}
+        <tr>
+            <td>{{ salary.user.username }}</td>
+            <td>{{ salary.base_salary }}</td>
+            <td>{{ salary.working_days }}</td>
+            <td>{{ salary.current_salary }}</td>
+            <td>{{ salary.withdrawn }}</td>
+            <td>
+                
+                <a style="color:white; background-color:green" href="{% url 'update_base_salary' pk=salary.pk %}">Edit</a>
+                
+                <form method="post" action="{% url 'admin_salary' %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="salary_id" value="{{ salary.id }}">
+                    <input style=" background-color:red; color:white" type="submit" value="Reset">
+                </form>
+            </td>
+            
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+<div>
+    {% if messages %}
+    {% for message in messages %}
+    <div class="alert">
+      {{ message }}
+    </div>
+    {% endfor %}
+    {% endif %}
+</center>
+</body>
+{% endblock %}
